@@ -15,20 +15,20 @@ export const getCategories = (req: Request, res: Response): void => {
 };
 
 export const getCategory = async (req: Request, res: Response): Promise<any> => {
-  const tweetId = req.params.tweetId;
+  const categoryTag = req.params.categoryTag;
 
-  console.log('Tweet ID', tweetId);
+  console.log('Category tag: ', categoryTag);
 
   // This line of code fixes the CastError: Cast to ObjectId failed for value "favicon.ico" (type string) at path "_id" for model "contents"
 
-  if (!mongoose.Types.ObjectId.isValid(tweetId)) return false;
+  if (!mongoose.Types.ObjectId.isValid(categoryTag)) return false;
 
-  await Category.findById(tweetId).exec();
+  // await Category.findById(categoryTag).exec();
 
-  Category.findById(tweetId, (err: any, tweet: any) => {
-      console.log(tweet);
+  Category.findById(categoryTag, (err: any, doc: any) => {
+      console.log(doc);
 
-      res.json(tweet);
+      res.json(doc);
 
       if (err) {
           console.log(err);

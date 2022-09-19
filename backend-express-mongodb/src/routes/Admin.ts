@@ -6,6 +6,6 @@ const router = express.Router();
 
 router.get('/', getCategories);
 
-router.get('/:tweetId', getCategory);
+router.get('/:categoryTag', getCategory);
 
 export default router;
