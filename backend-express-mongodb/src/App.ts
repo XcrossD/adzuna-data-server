@@ -6,6 +6,10 @@ console.log(process.env.DB_HOST);
 
 import express from 'express';
 
+import { graphqlHTTP } from 'express-graphql';
+
+import { buildSchema } from 'graphql';
+
 import cors from 'cors';
 
 import mongoose from 'mongoose';
@@ -19,6 +23,26 @@ app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 
 app.use(express.json());
+
+// Construct a schema, using GraphQL schema language
+var schema = buildSchema(`
+  type Query {
+    hello: String
+  }
+`);
+
+// The root provides a resolver function for each API endpoint
+var root = {
+  hello: () => {
+    return 'Hello world!';
+  },
+};
+
+app.use('/graphql', graphqlHTTP({
+  schema: schema,
+  rootValue: root,
+  graphiql: true,
+}));
 
 app.use('/', adminRoute);
 
