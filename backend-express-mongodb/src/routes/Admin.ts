@@ -4,9 +4,9 @@ import { getCategories, getCategory, getHistogramByCategory, getHistoricalByCate
 
 const router = express.Router();
 
-router.get('/', getCategories);
+router.get('/category', getCategories);
 
-router.get('/:categoryTag', getCategory);
+router.get('/category/:categoryTag', getCategory);
 
 router.get('/historical/:categoryTag', getHistoricalByCategory);
 
