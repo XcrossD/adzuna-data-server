@@ -55,3 +55,5 @@ mongoose.connect(`${process.env.DB_HOST_DOCKER}`)
   .catch((err: any) => {
     console.log(err);
   });
+
+export default app;
