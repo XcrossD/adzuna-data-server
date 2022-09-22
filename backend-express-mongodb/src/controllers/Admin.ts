@@ -1,8 +1,7 @@
 import { Response, Request } from 'express';
-import mongoose from 'mongoose';
-import Category from '../models/Category';
-import Histogram from '../models/Histogram';
-import Historical from '../models/Historical';
+import Category from '../models/category';
+import Histogram from '../models/histogram';
+import Historical from '../models/historical';
 
 export const getCategories = (req: Request, res: Response): void => {
   Category.find((err, data) => {

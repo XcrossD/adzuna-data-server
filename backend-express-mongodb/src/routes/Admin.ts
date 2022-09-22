@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { getCategories, getCategory, getHistogramByCategory, getHistoricalByCategory } from '../controllers/Admin';
+import { getCategories, getCategory, getHistogramByCategory, getHistoricalByCategory } from '../controllers/admin';
 
 const router = express.Router();
 

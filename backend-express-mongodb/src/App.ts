@@ -14,7 +14,7 @@ import cors from 'cors';
 
 import mongoose from 'mongoose';
 
-import adminRoute from './routes/Admin';
+import adminRoute from './routes/admin';
 
 const app = express();
 

@@ -1,9 +1,9 @@
 import dotenv from 'dotenv';
 import axios from 'axios';
 import mongoose from 'mongoose';
-import Category from './models/Category';
-import Historical from './models/Historical';
-import Histogram from './models/Histogram';
+import Category from './models/category';
+import Historical from './models/historical';
+import Histogram from './models/histogram';
 
 dotenv.config();
 
