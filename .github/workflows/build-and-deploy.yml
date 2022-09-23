@@ -1,0 +1,26 @@
+name: Data server docker CD
+
+on:
+  push:
+    branches: [ "master" ]
+
+env:
+  IMAGE_NAME: adzuna-data-server
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./backend-express-mongodb
+    steps:
+    - uses: actions/checkout@v3
+    - name: Login to Docker and build image
+      env:
+        DOCKER_USER: ${{secrets.DOCKER_USER}}
+        DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+      run: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+    - name: Build the Docker image
+      run: docker build . -t $DOCKER_USER/$IMAGE_NAME
+    - name: Push the Docker image
+      run: docker push $DOCKER_USER/$IMAGE_NAME
