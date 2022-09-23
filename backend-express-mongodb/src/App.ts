@@ -1,6 +1,12 @@
 import dotenv from 'dotenv';
 
-dotenv.config();
+const result = dotenv.config()
+
+if (result.error) {
+  throw result.error
+}
+
+// console.log(result.parsed);
 
 console.log(process.env.DB_HOST);
 
@@ -48,7 +54,7 @@ app.use('/', adminRoute);
 
 const port = process.env.PORT || 8080;
 
-mongoose.connect(`${process.env.DB_HOST_DOCKER}`)
+mongoose.connect(`${process.env.DB_HOST_ATLAS}`)
   .then(() => {
     app.listen(port, () => console.log(`Server and database running on port ${port}, http://localhost:${port}`));
   })

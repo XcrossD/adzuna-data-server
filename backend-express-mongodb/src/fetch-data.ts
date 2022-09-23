@@ -109,7 +109,7 @@ const getAndSaveHistogramData = async (categories: string[]) => {
 
 (async () => {
   try {
-    const dbConnection = await mongoose.connect(`${process.env.DB_HOST_DOCKER}`);
+    const dbConnection = await mongoose.connect(`${process.env.DB_HOST_ATLAS}`);
     
     await getAndSaveCategoriesData();
     const categories = await getAllCategories();
