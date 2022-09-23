@@ -5,6 +5,8 @@ on:
     branches: [ "master" ]
 
 env:
+  DOCKER_USER: ${{ secrets.DOCKER_USER }}
+  DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
   IMAGE_NAME: adzuna-data-server
 
 jobs:
@@ -16,11 +18,20 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Login to Docker and build image
-      env:
-        DOCKER_USER: ${{secrets.DOCKER_USER}}
-        DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
       run: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
     - name: Build the Docker image
       run: docker build . -t $DOCKER_USER/$IMAGE_NAME
     - name: Push the Docker image
       run: docker push $DOCKER_USER/$IMAGE_NAME
+    - name: Pull Docker image in server and run
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.WEB_SERVER_HOST }}
+        username: ubuntu
+        key: ${{ secrets.WEB_SERVER_KEY }}
+        script: |
+          docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+          docker pull $DOCKER_USER/$IMAGE_NAME
+          docker stop backend_server
+          docker rm backend_server
+          docker run -d --name backend_server -p 80:8080 $DOCKER_USER/$IMAGE_NAME
