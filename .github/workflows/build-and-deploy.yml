@@ -17,7 +17,7 @@ jobs:
         working-directory: ./backend-express-mongodb
     steps:
     - uses: actions/checkout@v3
-    - name: Login to Docker and build image
+    - name: Login to Docker
       run: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
     - name: Build the Docker image
       run: docker build . -t $DOCKER_USER/$IMAGE_NAME
@@ -29,6 +29,7 @@ jobs:
         host: ${{ secrets.WEB_SERVER_HOST }}
         username: ubuntu
         key: ${{ secrets.WEB_SERVER_KEY }}
+        envs: DOCKER_USER,DOCKER_PASSWORD,IMAGE_NAME
         script: |
           docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
           docker pull $DOCKER_USER/$IMAGE_NAME
