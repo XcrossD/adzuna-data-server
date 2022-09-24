@@ -42,6 +42,7 @@ const getAndSaveCategoriesData = async () => {
   if (newData.length > 0) {
     Category.insertMany(newData);
   }
+  return fetchedCategories.map((elem: ICategory) => elem.tag);
 };
 
 const getAllCategories = async () => {

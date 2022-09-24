@@ -4,7 +4,7 @@ import Histogram from '../models/histogram';
 import Historical from '../models/historical';
 
 export const getCategories = (req: Request, res: Response): void => {
-  Category.find((err, data) => {
+  Category.find((err: any, data: any) => {
       console.log(data);
 
       res.json(data);
