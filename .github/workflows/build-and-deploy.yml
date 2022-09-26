@@ -35,4 +35,4 @@ jobs:
           docker pull $DOCKER_USER/$IMAGE_NAME
           docker stop backend_server
           docker rm backend_server
-          docker run -d --name backend_server -p 80:8080 $DOCKER_USER/$IMAGE_NAME
+          docker run -d --name backend_server -p 80:8080 --env-file ./config/adzuna-data-server.env $DOCKER_USER/$IMAGE_NAME

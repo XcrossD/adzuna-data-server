@@ -14,12 +14,8 @@ RUN npm ci --only=production
 
 # Bundle app source
 COPY . ./
-# Specifically copy .env file
-COPY .env ./
 
 RUN npm run build
-
-RUN ls -al
 
 EXPOSE 8080
 CMD ["npm", "start"]
