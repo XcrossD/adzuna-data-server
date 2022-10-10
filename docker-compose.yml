@@ -1,11 +1,25 @@
 services:
-  mongo_db:
-    container_name: adzuna_db
-    image: 'mongo:latest'
+  node_express:
+    container_name: backend_server
+    image: xcrossd/adzuna-data-server
     restart: always
     ports:
-      - '2717:27017'
-    volumes:
-      - 'mongo_db:/data/db'
-volumes:
-  mongo_db: {}
+      - 8080:8080
+    env_file:
+      - ./config/adzuna-data-server.env
+    networks:
+      - mynet
+  nginx:
+    container_name: reverse_proxy
+    image: xcrossd/nginx-reverse-proxy
+    restart: always
+    ports:
+      - 80:80
+    depends_on:
+      node_express
+    networks:
+      - mynet
+
+networks:
+  mynet:
+    driver: bridge
