@@ -33,6 +33,4 @@ jobs:
         script: |
           docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
           docker pull $DOCKER_USER/$IMAGE_NAME:latest
-          docker stop backend_server
-          docker rm backend_server
-          docker run -d --name backend_server -p 80:8080 --env-file config/adzuna-data-server.env $DOCKER_USER/$IMAGE_NAME
+          docker compose --env-file config/adzuna-data-server.env up -d
