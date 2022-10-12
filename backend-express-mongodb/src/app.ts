@@ -12,6 +12,8 @@ import mongoose from 'mongoose';
 
 import adminRoute from './routes/admin';
 
+import { initFetchData } from './fetch-data';
+
 const app = express();
 
 app.use(cors());
@@ -41,6 +43,8 @@ app.use('/graphql', graphqlHTTP({
 }));
 
 app.use('/', adminRoute);
+
+initFetchData();
 
 const port = process.env.PORT || 8080;
 

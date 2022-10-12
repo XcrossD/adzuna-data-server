@@ -11,8 +11,7 @@
     "copy-files": "copyfiles -u 1 src/**/*.html src/**/*.css src/**/*.json dist/src",
     "test-dev": "nodemon --watch . --ext ts --exec \"mocha -r ts-node/register tests/**/*.test.ts\"",
     "test": "mocha -r ts-node/register 'src/tests/**/*.ts'",
-    "fetch-data": "node dist/src/fetch-data.js",
-    "fetch-data-dev": "ts-node src/fetch-data.ts"
+    "fetch-data": "ts-node src/fetch-data.ts"
   },
   "keywords": [],
   "author": "",

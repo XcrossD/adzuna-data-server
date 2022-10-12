@@ -116,7 +116,9 @@ const jobExecution = async () => {
   }
 };
 
-const job = nodeCron.schedule("0 0 1-30/3 * *", () => {
-  jobExecution();
-});
-job.start();
+export const initFetchData = () => {
+  const job = nodeCron.schedule("0 0 1-30/3 * *", () => {
+    jobExecution();
+  });
+  job.start();
+};

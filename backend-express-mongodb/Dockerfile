@@ -15,8 +15,7 @@ RUN npm ci --only=production
 # Bundle app source
 COPY . ./
 
-RUN npm run build \
-    && printf "npm run fetch-data\nnpm run start\n" > entrypoint.sh
+RUN npm run build
 
 EXPOSE 8080
-CMD ["/bin/sh", "entrypoint.sh"]
+CMD ["npm", "start"]
