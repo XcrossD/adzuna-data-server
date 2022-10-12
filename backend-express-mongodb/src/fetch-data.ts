@@ -1,11 +1,9 @@
-import dotenv from 'dotenv';
 import axios from 'axios';
 import mongoose from 'mongoose';
+import nodeCron from 'node-cron';
 import Category from './models/category';
 import Historical from './models/historical';
 import Histogram from './models/histogram';
-
-dotenv.config();
 
 const BASE_URL = "https://api.adzuna.com/v1/api/jobs";
 
@@ -44,11 +42,6 @@ const getAndSaveCategoriesData = async () => {
   }
   return fetchedCategories.map((elem: ICategory) => elem.tag);
 };
-
-const getAllCategories = async () => {
-  const categoriesRaw = await Category.find();
-  return categoriesRaw.map(elem => elem.tag);
-}
 
 const getAndSaveHistoricalData = async (categories: string[]) => {
   const getHistoricalRawArr = async () => {
@@ -108,12 +101,12 @@ const getAndSaveHistogramData = async (categories: string[]) => {
   }
 };
 
-(async () => {
+const jobExecution = async () => {
   try {
     const dbConnection = await mongoose.connect(`${process.env.DB_HOST_ATLAS}`);
     
-    await getAndSaveCategoriesData();
-    const categories = await getAllCategories();
+    const categories = await getAndSaveCategoriesData();
+    console.log(categories);
     await getAndSaveHistoricalData(categories);
     await getAndSaveHistogramData(categories);
     
@@ -121,4 +114,9 @@ const getAndSaveHistogramData = async (categories: string[]) => {
   } catch (err) {
     console.log(err);
   }
-})();
+};
+
+const job = nodeCron.schedule("0 0 1-30/3 * *", () => {
+  jobExecution();
+});
+job.start();

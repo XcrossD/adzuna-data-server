@@ -7,10 +7,15 @@ interface Histogram {
   };
 }
 
-const schema = new Schema<Histogram>({
-  category: { type: "String", required: true },
-  histogram: { type: Map, of: String }
-});
+const schema = new Schema<Histogram>(
+  {
+    category: { type: "String", required: true },
+    histogram: { type: Map, of: String }
+  },
+  {
+    timestamps: true
+  }
+);
 
 const histogramModel = model("histograms", schema);
 
